@@ -5,6 +5,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
 	main.cpp
-	#Expressions.hpp
+	Expressions.hpp
+	Addition.hpp
+	Conjunction.hpp
+	Disjunction.hpp
+	Equal.hpp
+	Implication.hpp
+	Increment.hpp
+	Multiplication.hpp
+	Negation.hpp
+	Operations.hpp
+	Subtraction.hpp
+	Variable.hpp
 	)
 add_executable(mathlogic2 ${SOURCE_FILES})
