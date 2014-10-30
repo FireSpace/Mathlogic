@@ -1,0 +1,32 @@
+#pragma once
+
+#include "Expressions.hpp"
+
+#include <memory>
+
+// Addition :: Object -> Object -> Object
+class Addition : public Binary<Object, Object, Object>
+{
+public:
+	Addition(Pointer<Object> arg1, Pointer<Object> arg2)
+		: Binary<Object, Object, Object>(arg1, arg2) {}
+
+
+	virtual Object calc() const override;
+	virtual std::string toString() const override;
+};
+
+Object Addition::calc() const
+{
+	return std::get<0>(args)->calc() + std::get<1>(args)->calc();
+}
+
+std::string Addition::toString() const
+{
+	return "(" + std::get<0>(args)->toString() + "+" + std::get<1>(args)->toString() + ")";
+}
+
+Pointer<Object> Add(Pointer<Object> arg1, Pointer<Object> arg2)
+{
+	return std::make_shared<Addition>(arg1, arg2);
+}
