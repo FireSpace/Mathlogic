@@ -36,8 +36,8 @@ public:
 
 	virtual std::string toString() const override
 	{
-		if (name.empty()) return std::to_string(var);
-		else return name;
+		if (name.empty()) return "(" + std::to_string(var) + ")";
+		else return "(" + name + ")";
 	}
 };
 
