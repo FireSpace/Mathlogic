@@ -5,11 +5,11 @@
 #include <memory>
 
 // Equal :: Object -> Object -> Boolean
-class Equal : public Binary<Boolean, Object, Object>
+class Equal : public Predicate<Object, Object>
 {
 public:
 	Equal(Pointer<Object> arg1, Pointer<Object> arg2)
-		: Binary<Boolean, Object, Object>(arg1, arg2) {}
+		: Predicate<Object, Object>(arg1, arg2) {}
 
 
 	virtual Boolean calc() const override;

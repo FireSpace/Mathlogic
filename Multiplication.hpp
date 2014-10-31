@@ -5,11 +5,11 @@
 #include <memory>
 
 // Multiplication :: Object -> Object -> Object
-class Multiplication : public Binary<Object, Object, Object>
+class Multiplication : public Term<Object, Object>
 {
 public:
 	Multiplication(Pointer<Object> arg1, Pointer<Object> arg2)
-		: Binary<Object, Object, Object>(arg1, arg2) {}
+		: Term<Object, Object>(arg1, arg2) {}
 
 	virtual Object calc() const override;
 	virtual std::string toString() const override;

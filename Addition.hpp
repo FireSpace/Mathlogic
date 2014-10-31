@@ -5,11 +5,11 @@
 #include <memory>
 
 // Addition :: Object -> Object -> Object
-class Addition : public Binary<Object, Object, Object>
+class Addition : public Term<Object, Object>
 {
 public:
 	Addition(Pointer<Object> arg1, Pointer<Object> arg2)
-		: Binary<Object, Object, Object>(arg1, arg2) {}
+		: Term<Object, Object>(arg1, arg2) {}
 
 
 	virtual Object calc() const override;

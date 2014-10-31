@@ -56,3 +56,15 @@ using Unary = Operation<Type, ArgT>;
 //Binary operations
 template <typename Type, typename Arg1T, typename Arg2T>
 using Binary = Operation<Type, Arg1T, Arg2T>;
+
+//Function
+template <typename ... ArgsT>
+using Function = Operation<Boolean, ArgsT...>;
+
+//Predicate
+template <typename ... ArgsT>
+using Predicate = Operation<Boolean, ArgsT...>;
+
+//Term
+template <typename ... ArgsT>
+using Term = Operation<Object, ArgsT...>;

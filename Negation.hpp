@@ -5,11 +5,11 @@
 #include <memory>
 
 //Negation :: Boolean -> Boolean
-class Negation : public Unary<Boolean, Boolean>
+class Negation : public Function<Boolean>
 {
 public:
 	Negation(Pointer<Boolean> arg)
-			: Unary<Boolean, Boolean>(arg) {}
+			: Function<Boolean>(arg) {}
 
 	virtual Boolean calc() const override
 	{

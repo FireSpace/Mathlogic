@@ -5,11 +5,11 @@
 #include <memory>
 
 //Conjunction :: Boolean -> Boolean -> Boolean
-class Conjunction : public Binary<Boolean, Boolean, Boolean>
+class Conjunction : public Function<Boolean, Boolean>
 {
 public:
 	Conjunction(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
-			: Binary<Boolean, Boolean, Boolean>(arg1, arg2) {}
+			: Function<Boolean, Boolean>(arg1, arg2) {}
 
 
 	virtual Boolean calc() const override;

@@ -5,11 +5,11 @@
 #include <memory>
 
 //Implication :: Boolean -> Boolean -> Boolean
-class Implication : public Binary<Boolean, Boolean, Boolean>
+class Implication : public Function<Boolean, Boolean>
 {
 public:
 	Implication(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
-		: Binary<Boolean, Boolean, Boolean>(arg1, arg2) {}
+		: Function<Boolean, Boolean>(arg1, arg2) {}
 
 
 	virtual Boolean calc() const override;

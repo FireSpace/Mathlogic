@@ -5,11 +5,11 @@
 #include <memory>
 
 // Increment :: Object -> Object
-class Increment : public Unary<Object, Object>
+class Increment : public Term<Object>
 {
 public:
 	Increment(Pointer<Object> arg)
-		: Unary<Object, Object>(arg) {}
+		: Term<Object>(arg) {}
 
 
 	virtual Object calc() const override;

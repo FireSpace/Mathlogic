@@ -5,11 +5,11 @@
 #include <memory>
 
 //Disjunction :: Boolean -> Boolean -> Boolean
-class Disjunction : public Binary<Boolean, Boolean, Boolean>
+class Disjunction : public Function<Boolean, Boolean>
 {
 public:
 	Disjunction(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
-		: Binary<Boolean, Boolean, Boolean>(arg1, arg2) {}
+		: Function<Boolean, Boolean>(arg1, arg2) {}
 
 	virtual Boolean calc() const override;
 	virtual std::string toString() const override;
