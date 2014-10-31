@@ -50,12 +50,12 @@ public:
 };
 
 //Unary operations
-template <typename Type, typename ArgT>
-using Unary = Operation<Type, ArgT>;
+//template <typename Type, typename ArgT>
+//using Unary = Operation<Type, ArgT>;
 
 //Binary operations
-template <typename Type, typename Arg1T, typename Arg2T>
-using Binary = Operation<Type, Arg1T, Arg2T>;
+//template <typename Type, typename Arg1T, typename Arg2T>
+//using Binary = Operation<Type, Arg1T, Arg2T>;
 
 //Function
 template <typename ... ArgsT>
