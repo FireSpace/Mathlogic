@@ -6,6 +6,7 @@
 #include "Term.hpp"
 
 #include <iostream>
+#include <memory>
 
 class ProposVar : public Function<>
 {
@@ -64,6 +65,8 @@ public:
     }
 };
 
+Pointer<Boolean> PropVar(std::string name) { return std::make_shared<ProposVar>(name); }
+Pointer<Object> ObjVar(std::string name) { return std::make_shared<ObjectVar>(name); }
 
 
 //Variable (maybe constant)

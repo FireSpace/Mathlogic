@@ -32,5 +32,5 @@ std::string Implication::toString() const
 
 Pointer<Boolean> Impl(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
 {
-	std::make_shared<Implication>(arg1, arg2);
+	return std::make_shared<Implication>(arg1, arg2);
 }
