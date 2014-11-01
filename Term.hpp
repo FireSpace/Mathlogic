@@ -7,6 +7,9 @@
 #include <vector>
 #include <memory>
 
+class ProposVar;
+class ObjectVar;
+
 //Term :: D^n -> D
 template <typename ... ArgsT>
 class Operation<Object, ArgsT...> : public Expression<Object>
@@ -49,25 +52,36 @@ protected:
 	}
 
 public:
-	Operation(Name name, Pointer<ArgsT>... args)
-			: name(name)
-			, args(args...) {}
+	std::vector<ProposVar> boundPropVars;
+	std::vector<ObjectVar> boundObjVars;
 
-	Operation(Name name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
+	Operation(Name name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+			: name(name)
+			, args(args...)
+			, boundPropVars(boundPropVars)
+			, boundObjVars(boundObjVars) {}
+
+	Operation(Name name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
 			: name(name)
 			, args(args...)
 			, func(func)
-			, init(true) {}
+			, init(true)
+			, boundPropVars(boundPropVars)
+			, boundObjVars(boundObjVars) {}
 
-	Operation(std::string name, Pointer<ArgsT>... args)
+	Operation(std::string name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
 			: name(name)
-			, args(args...) {}
+			, args(args...)
+			, boundPropVars(boundPropVars)
+			, boundObjVars(boundObjVars) {}
 
-	Operation(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
+	Operation(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
 			: name(name)
 			, args(args...)
 			, func(func)
-			, init(true) {}
+			, init(true)
+			, boundPropVars(boundPropVars)
+			, boundObjVars(boundObjVars) {}
 
 	void setName(std::function<Object(ArgsT...)> func) { this->func = func; init = true; }
 

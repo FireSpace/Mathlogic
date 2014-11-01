@@ -6,6 +6,10 @@
 #include <functional>
 #include <vector>
 #include <memory>
+#include <vector>
+
+class ProposVar;
+class ObjectVar;
 
 //Function :: V^n -> V
 //Predicate :: D^n -> V
@@ -52,25 +56,36 @@ protected:
 public:
 	virtual ~Operation() = default;
 
-	Operation(Name name, Pointer<ArgsT>... args)
-			: name(name)
-			, args(args...) {}
+	std::vector<ProposVar> boundPropVars;
+	std::vector<ObjectVar> boundObjVars;
 
-	Operation(Name name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
-            : name(name)
-            , args(args...)
-			, func(func)
-			, init(true) {}
+	Operation(Name name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+		: name(name)
+		, args(args...)
+		, boundPropVars(boundPropVars)
+		, boundObjVars(boundObjVars) {}
 
-	Operation(std::string name, Pointer<ArgsT>... args)
-			: name(name)
-			, args(args...) {}
+	Operation(Name name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+		: name(name)
+		, args(args...)
+		, func(func)
+		, init(true)
+		, boundPropVars(boundPropVars)
+		, boundObjVars(boundObjVars) {}
 
-	Operation(std::string, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
-            : name(name)
-            , args(args...)
-			, func(func)
-            , init(true) {}
+	Operation(std::string name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+		: name(name)
+		, args(args...)
+		, boundPropVars(boundPropVars)
+		, boundObjVars(boundObjVars) {}
+
+    Operation(std::string, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+        : name(name)
+        , args(args...)
+        , func(func)
+        , init(true)
+        , boundPropVars(boundPropVars)
+        , boundObjVars(boundObjVars) {}
 
 	void setName(std::function<Boolean(ArgsT...)> func) { this->func = func; init = true; }
 

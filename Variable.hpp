@@ -14,13 +14,13 @@ public:
 		: Function<>(name, [var](){return var;}) {}
 
 	ProposVar(std::string name, Boolean var)
-		: Function<>(name, [&var](){return var;}) {}
+		: Function<>(Name(name), [&var](){return var;}) {}
 
 	ProposVar(Boolean var)
-		: Function<>("", [var](){return var;}) {}
+		: Function<>(Name(""), [var](){return var;}) {}
 
 	ProposVar(std::string name)
-		: Function<>(name) {}
+		: Function<>(Name(name)) {}
 
 	virtual std::string toString() const override
     {
@@ -47,7 +47,7 @@ public:
 		: Term<>(Name(""), [var](){return var;}) {}
 
 	ObjectVar(std::string name)
-		: Term<>(name) {}
+		: Term<>(Name(name)) {}
 
 	ObjectVar(Name name)
 		: Term<>(name) {}
@@ -63,6 +63,8 @@ public:
         return func();
     }
 };
+
+
 
 //Variable (maybe constant)
 //Type — variable type
