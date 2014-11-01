@@ -19,12 +19,6 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
-	/*Operation() //???? Tak li?
-			: name("")
-			, args()
-			, func()
-			, init(false) {}
-	*/
 public:
 	Operation(Name name, Pointer<ArgsT>... args)
 			: name(name)

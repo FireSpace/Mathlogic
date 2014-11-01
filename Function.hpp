@@ -20,12 +20,6 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
-	/*Operation() //???? Tak li?
-			: name("")
-			, args()
-			, func()
-			, init(false) {}
-
 	/*template<int ... S>
 	std::string getStringTuple(seq<S...>)
 	{
