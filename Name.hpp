@@ -5,7 +5,7 @@
 //Name of a function or object variable or propositional variable or predicate
 class Name
 {
-	const std::string name;
+	std::string name;
 
 public:
 	Name(std::string name)

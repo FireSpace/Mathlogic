@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Term.hpp"
+#include "Name.hpp"
 
 #include <memory>
 
@@ -9,7 +11,7 @@ class Increment : public Term<Object>
 {
 public:
 	Increment(Pointer<Object> arg)
-		: Term<Object>(arg) {}
+        : Term<Object>(Name("Inc"), [](Object a){ return a++; }, arg) {}
 
 
 	virtual Object calc() const override;

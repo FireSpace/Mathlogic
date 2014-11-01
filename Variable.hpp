@@ -5,44 +5,54 @@
 #include "Function.hpp"
 #include "Term.hpp"
 
-class ProposVar : Function<>
+#include <iostream>
+
+class ProposVar : public Function<>
 {
 public:
 	ProposVar(Name name, Boolean var)
-			: name(name)
-			, func([var](){return var;}) {}
+			: Function<>(name, [var](){return var;}) {}
 
 	ProposVar(std::string name, Boolean var)
-			: name(name)
-			, func([var](){return var;}) {}
+            : Function<>(name, [&var](){return var;}) {}
 
 	ProposVar(Boolean var)
-			: func([var](){return var;}) {}
+			: Function<>("", [var](){return var;}) {}
 
 	virtual std::string toString() const override
-	{
-		return "(" + name.getName().empty() ? std::to_string(func()) : name.getName() + ")";
+    {
+        return "(" + ((name.empty()) ? std::to_string(func()) : name.getName()) + ")";
 	}
+
+    virtual Boolean calc() const override
+    {
+        assert(init);
+        return func();
+    }
 };
 
-class ObjectVar : Term<>
+class ObjectVar : public Term<>
 {
 public:
 	ObjectVar(Name name, Object var)
-			: name(name)
-			, func([var](){return var;}) {}
+			: Term<>(name, [var](){return var;}) {}
 
 	ObjectVar(std::string name, Object var)
-			: name(name)
-			, func([var](){return var;}) {}
+			: Term<>(name, [var](){return var;}) {}
 
 	ObjectVar(Object var)
-			: func([var](){return var;}) {}
+			: Term<>("", [var](){return var;}) {}
 
 	virtual std::string toString() const override
 	{
-		return "(" + name.getName().empty() ? std::to_string(func()) : name.getName() + ")";
+        return "(" + ((name.empty()) ? std::to_string(func()) : name.getName()) + ")";
 	}
+
+    virtual Object calc() const override
+    {
+        assert(init);
+        return func();
+    }
 };
 
 //Variable (maybe constant)
@@ -86,6 +96,6 @@ public:
 };
 */
 
-const Pointer<Boolean> True = std::make_shared<ProposVar>("True", true);
-const Pointer<Boolean> False = std::make_shared<ProposVar>("False", false);
+const Pointer<Boolean> True = std::make_shared<ProposVar>(Name("True"), true);
+const Pointer<Boolean> False = std::make_shared<ProposVar>(Name("False"), false);
 const Pointer<Object> Zero = std::make_shared<ObjectVar>(0);

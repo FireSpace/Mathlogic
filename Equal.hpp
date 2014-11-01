@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Name.hpp"
 
 #include <memory>
 
@@ -9,7 +10,7 @@ class Equal : public Predicate<Object, Object>
 {
 public:
 	Equal(Pointer<Object> arg1, Pointer<Object> arg2)
-		: Predicate<Object, Object>(arg1, arg2) {}
+        : Predicate<Object, Object>(Name("Eq"), [](Object a1, Object a2){ return a1 == a2; }, arg1, arg2) {}
 
 
 	virtual Boolean calc() const override;

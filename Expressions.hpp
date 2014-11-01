@@ -53,3 +53,16 @@ public:
 //Binary operations
 //template <typename Type, typename Arg1T, typename Arg2T>
 //using Binary = Operation<Type, Arg1T, Arg2T>;
+
+//Some utility
+/*template<int ...>
+struct seq { };
+
+template<int N, int ...S>
+struct gens : gens<N-1, N-1, S...> {};
+
+template<int ...S>
+struct gens<0, S...>
+{
+	typedef seq<S...> type;
+};*/

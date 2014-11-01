@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Term.hpp"
+#include "Name.hpp"
 
 #include <memory>
 
@@ -9,7 +11,7 @@ class Addition : public Term<Object, Object>
 {
 public:
 	Addition(Pointer<Object> arg1, Pointer<Object> arg2)
-		: Term<Object, Object>(arg1, arg2) {}
+        : Term<Object, Object>(Name("Add"), [](Object a1, Object a2){return a1 + a2;}, arg1, arg2) {}
 
 
 	virtual Object calc() const override;

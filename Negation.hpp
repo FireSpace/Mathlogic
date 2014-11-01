@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Function.hpp"
+#include "Name.hpp"
 
 #include <memory>
 
@@ -9,7 +11,7 @@ class Negation : public Function<Boolean>
 {
 public:
 	Negation(Pointer<Boolean> arg)
-			: Function<Boolean>(arg) {}
+            : Function<Boolean>(Name("Neg"), [](Boolean a){ return !a; }, arg) {}
 
 	virtual Boolean calc() const override
 	{

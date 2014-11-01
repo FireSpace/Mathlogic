@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Function.hpp"
+#include "Name.hpp"
 
 #include <memory>
 
@@ -9,7 +11,7 @@ class Conjunction : public Function<Boolean, Boolean>
 {
 public:
 	Conjunction(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
-			: Function<Boolean, Boolean>(arg1, arg2) {}
+            : Function<Boolean, Boolean>(Name("Conj"), [](Boolean a1, Boolean a2){return a1 && a2; }, arg1, arg2) {}
 
 
 	virtual Boolean calc() const override;

@@ -10,3 +10,5 @@
 #include "Negation.hpp"
 #include "Subtraction.hpp"
 #include "Variable.hpp"
+#include "Term.hpp"
+#include "Function.hpp"
