@@ -41,9 +41,6 @@ protected:
 public:
 	~Operation() = default;
 
-	Operation(Pointer<ArgsT>... args)
-		: args(args...) {   }
-
 	virtual Type calc() const override = 0;
 
 	virtual std::string toString() const override = 0;
@@ -56,15 +53,3 @@ public:
 //Binary operations
 //template <typename Type, typename Arg1T, typename Arg2T>
 //using Binary = Operation<Type, Arg1T, Arg2T>;
-
-//Function
-template <typename ... ArgsT>
-using Function = Operation<Boolean, ArgsT...>;
-
-//Predicate
-template <typename ... ArgsT>
-using Predicate = Operation<Boolean, ArgsT...>;
-
-//Term
-template <typename ... ArgsT>
-using Term = Operation<Object, ArgsT...>;

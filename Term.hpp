@@ -19,16 +19,32 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
-public:
-	Operation(Pointer<ArgsT>... args, Name name)
-			: name(name)
-			  , args(args) {}
+	Operation() //???? Tak li?
+			: name("")
+			, args()
+			, func()
+			, init(false) {}
 
-	Operation(Pointer<ArgsT>... args, Name name, std::function<Object(ArgsT...)> func)
+public:
+	Operation(Name name, Pointer<ArgsT>... args)
+			: name(name)
+			, args(args) {}
+
+	Operation(Name name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
 			: args(args)
-			  , name(name)
-			  , func(func)
-			  , init(true) {}
+			, name(name)
+			, func(func)
+			, init(true) {}
+
+	Operation(std::string name, Pointer<ArgsT>... args)
+			: name(name)
+			, args(args) {}
+
+	Operation(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
+			: args(args)
+			, name(name)
+			, func(func)
+			, init(true) {}
 
 	void setName(std::function<Object(ArgsT...)> func) { this->func = func; init = true; }
 
@@ -36,6 +52,8 @@ public:
 	{
 		assert(init);
 		//DODELAT'
+		//Ne zabyd', chto nakosyachil v Variable.hpp (args not init)
+		return true;
 	}
 
 	virtual std::string toString() const

@@ -20,12 +20,30 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
+	Operation() //???? Tak li?
+			: name("")
+			, args()
+			, func()
+			, init(false) {}
+
 public:
-	Operation(Pointer<ArgsT>... args, Name name)
+	virtual ~Operation() = default;
+
+	Operation(Name name, Pointer<ArgsT>... args)
 			: name(name)
 			, args(args) {}
 
-	Operation(Pointer<ArgsT>... args, Name name, std::function<Boolean(ArgsT...)> func)
+	Operation(Name name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
+			: args(args)
+			, name(name)
+			, func(func)
+			, init(true) {}
+
+	Operation(std::string name, Pointer<ArgsT>... args)
+			: name(name)
+			, args(args) {}
+
+	Operation(std::string, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
 			: args(args)
 			, name(name)
 			, func(func)
@@ -33,13 +51,15 @@ public:
 
 	void setName(std::function<Boolean(ArgsT...)> func) { this->func = func; init = true; }
 
-	virtual Boolean calc() const
+	virtual Boolean calc() const override
 	{
 		assert(init);
 		//DODELAT'
+		//Ne zabyd', chto nakosyachil v Variable.hpp (args not init)
+		return true;
 	}
 
-	virtual std::string toString() const
+	virtual std::string toString() const override
 	{
 		std::string result = "(" + name.getName() + "(";
 		for (int i = 0; i < arn; ++i)
