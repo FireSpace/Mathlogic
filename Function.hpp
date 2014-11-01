@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <vector>
+#include <memory>
 
 //Function :: V^n -> V
 //Predicate :: D^n -> V
@@ -93,3 +94,27 @@ using Function = Operation<Boolean, ArgsT...>;
 //Because we don't have a syntax like <typename ... Object> :/
 template <typename ... ArgsT>
 using Predicate = Operation<Boolean, ArgsT...>;
+
+template <typename ... ArgsT>
+Pointer<Boolean> Func(std::string name, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Function<ArgsT...>>(name, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> Func(std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Function<ArgsT...>>(name, func, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> Pred(std::string name, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Predicate<ArgsT...>>(name, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> Pred(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Predicate<ArgsT...>>(name, func, args...);
+}

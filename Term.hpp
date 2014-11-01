@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <vector>
+#include <memory>
 
 //Term :: D^n -> D
 template <typename ... ArgsT>
@@ -87,3 +88,15 @@ public:
 //Term
 template <typename ... ArgsT>
 using Term = Operation<Object, ArgsT...>;
+
+template <typename ... ArgsT>
+Pointer<Object> Ter(std::string name, Pointer<ArgsT>... args)
+{
+	return std::make_shared<Term<ArgsT...>>(name, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Object> Ter(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
+{
+	return std::make_shared<Term<ArgsT...>>(name, func, args...);
+}

@@ -5,6 +5,7 @@
 #include "Variable.hpp"
 
 #include <functional>
+#include <memory>
 
 // type :: true — forall
 //         false — exist
@@ -40,3 +41,15 @@ using Forall = Quantifier<true, ArgsT...>;
 
 template <typename ... ArgsT>
 using Exist = Quantifier<false, ArgsT...>;
+
+template <typename ... ArgsT>
+Pointer<Boolean> Quant(bool isForall, std::string name, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Quantifier<isForall, ArgsT...>>(name, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> Quant(bool isForall, std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT> args)
+{
+    return std::make_shared<Quantifier<isForall, ArgsT...>>(name, func, args...);
+}
