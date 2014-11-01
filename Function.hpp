@@ -98,23 +98,23 @@ using Predicate = Operation<Boolean, ArgsT...>;
 template <typename ... ArgsT>
 Pointer<Boolean> Func(std::string name, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Function<ArgsT...>>(name, args...);
+    return std::make_shared<Function<ArgsT...>>(Name(name), args...);
 }
 
 template <typename ... ArgsT>
 Pointer<Boolean> Func(std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Function<ArgsT...>>(name, func, args...);
+    return std::make_shared<Function<ArgsT...>>(Name(name), func, args...);
 }
 
 template <typename ... ArgsT>
 Pointer<Boolean> Pred(std::string name, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Predicate<ArgsT...>>(name, args...);
+    return std::make_shared<Predicate<ArgsT...>>(Name(name), args...);
 }
 
 template <typename ... ArgsT>
 Pointer<Boolean> Pred(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Predicate<ArgsT...>>(name, func, args...);
+    return std::make_shared<Predicate<ArgsT...>>(Name(name), func, args...);
 }

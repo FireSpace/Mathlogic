@@ -92,11 +92,11 @@ using Term = Operation<Object, ArgsT...>;
 template <typename ... ArgsT>
 Pointer<Object> Ter(std::string name, Pointer<ArgsT>... args)
 {
-	return std::make_shared<Term<ArgsT...>>(name, args...);
+	return std::make_shared<Term<ArgsT...>>(Name(name), args...);
 }
 
 template <typename ... ArgsT>
 Pointer<Object> Ter(std::string name, std::function<Object(ArgsT...)> func, Pointer<ArgsT>... args)
 {
-	return std::make_shared<Term<ArgsT...>>(name, func, args...);
+	return std::make_shared<Term<ArgsT...>>(Name(name), func, args...);
 }

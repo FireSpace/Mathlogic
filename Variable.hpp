@@ -11,13 +11,16 @@ class ProposVar : public Function<>
 {
 public:
 	ProposVar(Name name, Boolean var)
-			: Function<>(name, [var](){return var;}) {}
+		: Function<>(name, [var](){return var;}) {}
 
 	ProposVar(std::string name, Boolean var)
-            : Function<>(name, [&var](){return var;}) {}
+		: Function<>(name, [&var](){return var;}) {}
 
 	ProposVar(Boolean var)
-			: Function<>("", [var](){return var;}) {}
+		: Function<>("", [var](){return var;}) {}
+
+	ProposVar(std::string name)
+		: Function<>(name) {}
 
 	virtual std::string toString() const override
     {
@@ -35,13 +38,19 @@ class ObjectVar : public Term<>
 {
 public:
 	ObjectVar(Name name, Object var)
-			: Term<>(name, [var](){return var;}) {}
+		: Term<>(name, [var](){return var;}) {}
 
 	ObjectVar(std::string name, Object var)
-			: Term<>(name, [var](){return var;}) {}
+		: Term<>(name, [var](){return var;}) {}
 
 	ObjectVar(Object var)
-			: Term<>("", [var](){return var;}) {}
+		: Term<>("", [var](){return var;}) {}
+
+	ObjectVar(std::string name)
+		: Term<>(name) {}
+
+	ObjectVar(Name name)
+		: Term<>(name) {}
 
 	virtual std::string toString() const override
 	{

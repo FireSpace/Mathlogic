@@ -14,19 +14,19 @@ class Quantifier : public Function<ArgsT...>
 {
 private:
     ObjectVar var;
-    const std::function<Boolean(ArgsT...)> defaultFunc = [](){ return true; };
+    const std::function<Boolean(ArgsT...)> defaultFunc = [](ArgsT...){ return true; };
 public:
     Quantifier(ObjectVar var, Pointer<ArgsT>... args)
         : Function<ArgsT...>("", defaultFunc, args...)
         , var(var) {}
 
-    Quantifier(ObjectVar var, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT> args)
-        : Function<ArgsT...>("", func, args)
+    Quantifier(ObjectVar var, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
+        : Function<ArgsT...>("", func, args...)
         , var(var) {}
 
     virtual std::string toString() const override
     {
-        return (type ? "@" : "?") + var.toString() + "(" + caller(typename gens<sizeof...(args)>::type()) + ")";
+        return (type ? "@" : "?") + var.toString() + "(" + this->caller(typename gens<sizeof...(ArgsT)>::type()) + ")";
     }
 
     virtual Boolean calc() const override
@@ -43,13 +43,25 @@ template <typename ... ArgsT>
 using Exist = Quantifier<false, ArgsT...>;
 
 template <typename ... ArgsT>
-Pointer<Boolean> Quant(bool isForall, std::string name, Pointer<ArgsT>... args)
+Pointer<Boolean> QuantForall(std::string name, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Quantifier<isForall, ArgsT...>>(name, args...);
+    return std::make_shared<Quantifier<true, ArgsT...>>(ObjectVar(Name(name)), args...);
 }
 
 template <typename ... ArgsT>
-Pointer<Boolean> Quant(bool isForall, std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT> args)
+Pointer<Boolean> QuantExist(std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
 {
-    return std::make_shared<Quantifier<isForall, ArgsT...>>(name, func, args...);
+    return std::make_shared<Quantifier<false, ArgsT...>>(ObjectVar(Name(name)), func, args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> QuantExist(std::string name, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Quantifier<false, ArgsT...>>(ObjectVar(Name(name)), args...);
+}
+
+template <typename ... ArgsT>
+Pointer<Boolean> QuantForall(std::string name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
+{
+    return std::make_shared<Quantifier<true, ArgsT...>>(ObjectVar(Name(name)), func, args...);
 }

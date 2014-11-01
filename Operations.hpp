@@ -12,3 +12,4 @@
 #include "Variable.hpp"
 #include "Term.hpp"
 #include "Function.hpp"
+#include "Quantifier.hpp"
