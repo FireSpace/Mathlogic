@@ -20,6 +20,8 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
+	std::string allArgsToString();
+
 	/*template<int ... S>
 	std::string getStringTuple(seq<S...>)
 	{
