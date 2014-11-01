@@ -25,7 +25,7 @@ public:
 
     virtual std::string toString() const override
     {
-        return (type ? "@" : "?") + var.toString() + "(" + allArgsToString() + ")";
+        return (type ? "@" : "?") + var.toString() + "(" + caller(typename gens<sizeof...(args)>::type()) + ")";
     }
 
     virtual Boolean calc() const override

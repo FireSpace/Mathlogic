@@ -20,13 +20,27 @@ protected:
 
 	static const size_t arn = sizeof...(ArgsT);
 
-	std::string allArgsToString();
-
-	/*template<int ... S>
-	std::string getStringTuple(seq<S...>)
+	template <typename T>
+	std::string argToString(Pointer<T> arg) const
 	{
-		return std::get<S>(args)->toString();
-	}*/
+		return arg->toString();
+	}
+
+	std::string allArgsToString() const { return ""; }
+
+	template <typename A, typename ... B>
+	std::string allArgsToString(A a, B ... b) const
+	{
+		return argToString(a) + "," + allArgsToString(b...);
+	}
+
+	template<int ... S>
+	std::string caller(seq<S...>) const
+	{
+		std::string result = allArgsToString(std::get<S>(args)...);
+		if (result.length() != 0) result = result.substr(0, result.length()-1);
+		return result;
+	}
 
 public:
 	virtual ~Operation() = default;
@@ -61,19 +75,15 @@ public:
 		return true;
     }*/
 
-    virtual std::string toString() const override = 0;
-    /*{
+    virtual std::string toString() const override
+    {
         std::string result = "(" + name.getName() + "(";
 
 		//Do not work
-        for (int i = 0; i < arn; ++i)
-		{
-			result += (std::get<i>(args)->toString() + ",");
-        }
-		result.at(result.length()-1) = ')';
-		result += ")";
+		result += caller(typename gens<sizeof...(ArgsT)>::type());
+		result += "))";
         return result;
-    }*/
+    }
 };
 
 
