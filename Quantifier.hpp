@@ -20,11 +20,11 @@ private:
     std::function<Boolean(ArgsT...)> defaultFunc ( ) { return [](ArgsT ... args){ return true; }; }
 public:
     Quantifier(VarT var, Pointer<ArgsT>... args)
-        : Function<ArgsT...>(Name(""), defaultFunc(), args..., std::vector<VarT>(var))
+        : Function<ArgsT...>(Name(""), defaultFunc(), args...)
         , var(var) {}
 
     Quantifier(VarT var, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
-        : Function<ArgsT...>(Name(""), func, args..., std::vector<ArgsT>(var))
+        : Function<ArgsT...>(Name(""), func, args...)
         , var(var) {}
 
     virtual std::string toString() const override

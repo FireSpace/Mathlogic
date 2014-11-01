@@ -21,5 +21,6 @@ set(SOURCE_FILES
 	Function.hpp
 	Term.hpp
 	Quantifier.hpp
+	Context.hpp
 	)
 add_executable(mathlogic2 ${SOURCE_FILES})

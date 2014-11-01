@@ -59,33 +59,25 @@ public:
 	std::vector<ProposVar> boundPropVars;
 	std::vector<ObjectVar> boundObjVars;
 
-	Operation(Name name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+	Operation(Name name, Pointer<ArgsT>... args)
 		: name(name)
-		, args(args...)
-		, boundPropVars(boundPropVars)
-		, boundObjVars(boundObjVars) {}
+		, args(args...) {}
 
-	Operation(Name name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+	Operation(Name name, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
 		: name(name)
 		, args(args...)
 		, func(func)
-		, init(true)
-		, boundPropVars(boundPropVars)
-		, boundObjVars(boundObjVars) {}
+		, init(true) {}
 
-	Operation(std::string name, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+	Operation(std::string name, Pointer<ArgsT>... args)
 		: name(name)
-		, args(args...)
-		, boundPropVars(boundPropVars)
-		, boundObjVars(boundObjVars) {}
+		, args(args...) {}
 
-    Operation(std::string, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args, std::vector<ProposVar> boundPropVars = std::vector<ProposVar>(), std::vector<ObjectVar> boundObjVars = std::vector<ObjectVar>())
+    Operation(std::string, std::function<Boolean(ArgsT...)> func, Pointer<ArgsT>... args)
         : name(name)
         , args(args...)
         , func(func)
-        , init(true)
-        , boundPropVars(boundPropVars)
-        , boundObjVars(boundObjVars) {}
+        , init(true) {}
 
 	void setName(std::function<Boolean(ArgsT...)> func) { this->func = func; init = true; }
 
