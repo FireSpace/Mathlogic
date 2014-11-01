@@ -35,11 +35,17 @@ protected:
 	}
 
 	template<int ... S>
-	std::string caller(seq<S...>) const
+	std::string callerToString(seq<S...>) const
 	{
 		std::string result = allArgsToString(std::get<S>(args)...);
 		if (result.length() != 0) result = result.substr(0, result.length()-1);
 		return result;
+	}
+
+	template <int ... S>
+	Object callerCalc(seq<S...>) const
+	{
+		return func(std::get<S>(args)->calc()...);
 	}
 
 public:
@@ -65,20 +71,17 @@ public:
 
 	void setName(std::function<Object(ArgsT...)> func) { this->func = func; init = true; }
 
-    virtual Object calc() const = 0;
-    /*{
+    virtual Object calc() const
+    {
 		assert(init);
-		//DODELAT'
-		//Ne zabyd', chto nakosyachil v Variable.hpp (args not init)
-		return true;
-	}*/
+		return callerCalc(typename gens<sizeof...(ArgsT)>::type());
+	}
 
     virtual std::string toString() const override
     {
         std::string result = "(" + name.getName() + "(";
 
-		//Do not work
-		result += caller(typename gens<sizeof...(ArgsT)>::type());
+		result += callerToString(typename gens<sizeof...(ArgsT)>::type());
 		result += "))";
 		return result;
 	}

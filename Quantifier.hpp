@@ -15,7 +15,8 @@ class Quantifier : public Function<ArgsT...>
 {
 private:
     Name var;
-    const std::function<Boolean(ArgsT...)> defaultFunc = [](ArgsT...){ return true; };
+    //const std::function<Boolean(ArgsT...)> defaultFunc = [](ArgsT ... args){ return true; };
+    std::function<Boolean(ArgsT...)> defaultFunc ( ) { return [](ArgsT ... args){ return true; }; }
 public:
     Quantifier(Name var, Pointer<ArgsT>... args)
         : Function<ArgsT...>(Name(""), defaultFunc, args...)
@@ -27,13 +28,14 @@ public:
 
     virtual std::string toString() const override
     {
-        return (type ? "(@" : "(?") + var.getName() + "(" + this->caller(typename gens<sizeof...(ArgsT)>::type()) + "))";
+        return (type ? "(@" : "(?") + var.getName() + "(" + this->callerToString(typename gens<sizeof...(ArgsT)>::type()) + "))";
     }
 
-    virtual Boolean calc() const override
+    /*virtual Boolean calc() const override
     {
-        //???
-    }
+        assert(this->init);
+        return this->callerCalc(typename gens<sizeof...(ArgsT)>::type());
+    }*/
 };
 
 

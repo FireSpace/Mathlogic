@@ -44,7 +44,7 @@ public:
 		: Term<>(name, [var](){return var;}) {}
 
 	ObjectVar(Object var)
-		: Term<>("", [var](){return var;}) {}
+		: Term<>(Name(""), [var](){return var;}) {}
 
 	ObjectVar(std::string name)
 		: Term<>(name) {}
