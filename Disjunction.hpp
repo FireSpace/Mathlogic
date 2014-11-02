@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Expressions.hpp"
+#include "Function.hpp"
 #include "Name.hpp"
 
 #include <memory>
@@ -23,7 +24,12 @@ Boolean Disjunction::calc() const
 
 std::string Disjunction::toString() const
 {
-	return "(" + (std::get<0>(args))->toString() + "|" + (std::get<1>(args))->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + (std::get<0>(args))->toString() + "|" + (std::get<1>(args))->toString() + ")";
+	this->clearBit = true;
+
+	return str;
 }
 
 Pointer<Boolean> Disj(Pointer<Boolean> arg1, Pointer<Boolean> arg2)

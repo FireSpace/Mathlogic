@@ -2,6 +2,7 @@
 
 #include "Expressions.hpp"
 #include "Name.hpp"
+#include "Function.hpp"
 
 #include <memory>
 
@@ -24,7 +25,12 @@ Boolean Equal::calc() const
 
 std::string Equal::toString() const
 {
-	return "(" + std::get<0>(args)->toString() + "=" + std::get<1>(args)->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + std::get<0>(args)->toString() + "=" + std::get<1>(args)->toString() + ")";
+	this->clearBit = true;
+
+	return str;
 }
 
 Pointer<Boolean> Eq(Pointer<Object> arg1, Pointer<Object> arg2)

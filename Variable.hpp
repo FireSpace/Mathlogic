@@ -25,7 +25,12 @@ public:
 
 	virtual std::string toString() const override
     {
-        return "(" + ((name.empty()) ? std::to_string(func()) : name.getName()) + ")";
+        if (this->clearBit) return this->str;
+
+        this->str = "(" + ((name.empty()) ? std::to_string(func()) : name.getName()) + ")";
+        this->clearBit = true;
+
+		return this->str;
 	}
 
     virtual Boolean calc() const override
@@ -68,47 +73,6 @@ public:
 Pointer<Boolean> PropVar(std::string name) { return std::make_shared<ProposVar>(name); }
 Pointer<Object> ObjVar(std::string name) { return std::make_shared<ObjectVar>(name); }
 
-
-//Variable (maybe constant)
-//Type — variable type
-//True, False and Zero constant (nullary function)
-/*template <typename Type>
-class Variable : public Expression<Type>
-{
-protected:
-	Type var;
-	Name name;
-
-	bool init;
-
-public:
-	Variable(Type var)
-			: var(var)
-			, name("")
-			, init(true) {}
-
-	Variable(std::string name)
-			: name(name) {}
-
-	Variable(Type var, std::string name)
-			: var(var)
-			  , name(name)
-			  , init(true) {}
-
-	virtual Type calc() const override
-	{
-		assert(init);
-
-		return var;
-	}
-
-	virtual std::string toString() const override
-	{
-		if (name.empty()) return "(" + std::to_string(var) + ")";
-		else return "(" + name.getName() + ")";
-	}
-};
-*/
 
 const Pointer<Boolean> True = std::make_shared<ProposVar>(Name("True"), true);
 const Pointer<Boolean> False = std::make_shared<ProposVar>(Name("False"), false);

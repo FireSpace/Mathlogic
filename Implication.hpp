@@ -27,7 +27,12 @@ Boolean Implication::calc() const
 
 std::string Implication::toString() const
 {
-	return "(" + std::get<0>(args)->toString() + "→" + std::get<1>(args)->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + std::get<0>(args)->toString() + "→" + std::get<1>(args)->toString() + ")";
+	this->clearBit = true;
+
+	return str;
 }
 
 Pointer<Boolean> Impl(Pointer<Boolean> arg1, Pointer<Boolean> arg2)

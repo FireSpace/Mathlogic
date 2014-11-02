@@ -23,8 +23,13 @@ protected:
 	std::function<Boolean(ArgsT...)> func;
 	bool init;
 
+	mutable std::string str;
+	mutable bool clearBit;
+
 	static const size_t arn = sizeof...(ArgsT);
 
+//---------------------------------------------------------------------------------------------------
+//For tuple
 	template <typename T>
 	std::string argToString(Pointer<T> arg) const
 	{
@@ -52,6 +57,7 @@ protected:
 	{
 		return func((std::get<S>(args)->calc())...);
 	}
+//---------------------------------------------------------------------------------------------------
 
 public:
 	virtual ~Operation() = default;
@@ -89,10 +95,15 @@ public:
 
     virtual std::string toString() const override
     {
-        std::string result = "(" + name.getName() + "(";
+        if (clearBit) return str;
 
+        std::string result = "(" + name.getName() + "(";
 		result += callerToString(typename gens<sizeof...(ArgsT)>::type());
 		result += "))";
+
+		str = result;
+		clearBit = true;
+
         return result;
     }
 };

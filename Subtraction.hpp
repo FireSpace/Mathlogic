@@ -25,7 +25,12 @@ Object Subtraction::calc() const
 
 std::string Subtraction::toString() const
 {
-	return "(" + std::get<0>(args)->toString() + "-" + std::get<1>(args)->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + std::get<0>(args)->toString() + "-" + std::get<1>(args)->toString() + ")";
+	this->clearBit = true;
+
+	return this->str;
 }
 
 Pointer<Object> Subtract(Pointer<Object> arg1, Pointer<Object> arg2)

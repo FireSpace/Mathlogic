@@ -25,7 +25,12 @@ Object Increment::calc() const
 
 std::string Increment::toString() const
 {
-	return "(" + std::get<0>(args)->toString() + "')";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + std::get<0>(args)->toString() + "')";
+	this->clearBit = true;
+
+	return this->str;
 }
 
 Pointer<Object> Inc(Pointer<Object> arg)

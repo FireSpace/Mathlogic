@@ -29,7 +29,12 @@ public:
 
     virtual std::string toString() const override
     {
-        return (type ? "(@" : "(?") + var.toString() + "(" + this->callerToString(typename gens<sizeof...(ArgsT)>::type()) + "))";
+        if (this->clearBit) return this->str;
+
+        this->str = (type ? "(@" : "(?") + var.toString() + "(" + this->callerToString(typename gens<sizeof...(ArgsT)>::type()) + "))";
+        this->clearBit = true;
+
+        return this->str;
     }
 
     /*virtual Boolean calc() const override

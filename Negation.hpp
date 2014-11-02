@@ -21,7 +21,12 @@ public:
 
 	virtual std::string toString() const override
 	{
-		return "(!" + (std::get<0>(args))->toString() + ")";
+		if (this->clearBit) return this->str;
+
+		this->str = "(!" + (std::get<0>(args))->toString() + ")";
+		this->clearBit = true;
+
+		return this->str;
 	}
 };
 

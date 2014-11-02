@@ -24,7 +24,12 @@ Object Multiplication::calc() const
 
 std::string Multiplication::toString() const
 {
-	return "(" + std::get<0>(args)->toString() + "*" + std::get<1>(args)->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + std::get<0>(args)->toString() + "*" + std::get<1>(args)->toString() + ")";
+	this->clearBit = true;
+
+	return this->str;
 }
 
 Pointer<Object> Mul(Pointer<Object> arg1, Pointer<Object> arg2)

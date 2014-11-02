@@ -25,7 +25,12 @@ Boolean Conjunction::calc() const
 
 std::string Conjunction::toString() const
 {
-	return "(" + (std::get<0>(args))->toString() + "&" + (std::get<1>(args))->toString() + ")";
+	if (this->clearBit) return this->str;
+
+	this->str = "(" + (std::get<0>(args))->toString() + "&" + (std::get<1>(args))->toString() + ")";
+	this->clearBit = true;
+
+	return str;
 }
 
 Pointer<Boolean> Conj(Pointer<Boolean> arg1, Pointer<Boolean> arg2)
