@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <vector>
+#include <iostream>
 
 class ProposVar;
 class ObjectVar;
@@ -30,18 +31,12 @@ protected:
 
 //---------------------------------------------------------------------------------------------------
 //For tuple
-	template <typename T>
-	std::string argToString(Pointer<T> arg) const
-	{
-		return arg->toString();
-	}
-
 	std::string allArgsToString() const { return ""; }
 
 	template <typename A, typename ... B>
-	std::string allArgsToString(A a, B ... b) const
+	std::string allArgsToString(A& a, B& ... b) const
 	{
-		return argToString(a) + "," + allArgsToString(b...);
+		return (a)->toString() + "," + allArgsToString(b...);
 	}
 
 	template<int ... S>
@@ -59,30 +54,26 @@ protected:
 	}
 
 	template <typename T>
-	void finalSubst(Pointer<T> from, Pointer<T> to) {}
+	void finalSubst(const Pointer<T>& from, const Pointer<T>& to) {}
 
 	template<typename A, typename ... B, typename T>
-	void finalSubst(Pointer<T> from, Pointer<T> to, A a, B ... b)
+	void finalSubst(const Pointer<T>& from, const Pointer<T>& to, A& a, B& ... b)
 	{
 		a->substitution(from, to);
 		finalSubst(from, to, b...);
 	}
 
-	template <typename A, typename ... B, typename T>
-	void finalSubst(Pointer<T> from, Pointer<T> to, Pointer<T> a, B ... b)
+	template <typename ... B, typename T>
+	void finalSubst(const Pointer<T>& from, const Pointer<T>& to, Pointer<T>& a, B& ... b)
 	{
-		if (from == a)
-		{
-			a = to;
-			to->toString();
-		}
-		a->substitution(from, to);
+		if (from == a) a = to;
+		else a->substitution(from, to);
 
 		finalSubst(from, to, b...);
 	}
 
 	template <int ... S, typename T>
-	void callerSubst(Pointer<T> from, Pointer<T> to, seq<S...>)
+	void callerSubst(const Pointer<T>& from, const Pointer<T>& to, seq<S...>)
 	{
 		finalSubst(from, to, std::get<S>(args)...);
 	}
@@ -90,9 +81,11 @@ protected:
 //---------------------------------------------------------------------------------------------------
 
 	template <typename T>
-	void subst(Pointer<T> from, Pointer<T> to)
+	void subst(const Pointer<T>& from, const Pointer<T>& to)
 	{
+		this->clearBit = false;
 		callerSubst(from, to, typename gens<sizeof...(ArgsT)>::type());
+		toString();
 	}
 
 public:
@@ -101,7 +94,7 @@ public:
 	std::vector<ProposVar> boundPropVars;
 	std::vector<ObjectVar> boundObjVars;
 
-	Operation(Name name, Pointer<ArgsT>... args)
+	Operation(Name name, Pointer<ArgsT> ... args)
 		: name(name)
 		, args(args...) {}
 
@@ -143,12 +136,12 @@ public:
         return result;
     }
 
-    virtual void substitution(Pointer<Boolean> from, Pointer<Boolean> to) override
+    virtual void substitution(const Pointer<Boolean>& from, const Pointer<Boolean>& to) override
     {
         subst(from, to);
     }
 
-    virtual void substitution(Pointer<Object> from, Pointer<Object> to) override
+    virtual void substitution(const Pointer<Object>& from, const Pointer<Object>& to) override
     {
         subst(from, to);
     }

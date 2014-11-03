@@ -22,23 +22,23 @@ public:
 	virtual std::string toString() const = 0;
 	
 	//2 overloads becouse templates may not be virtual
-	virtual void substitution(std::shared_ptr<Expression<Boolean>>, std::shared_ptr<Expression<Boolean>> to) = 0;
-	virtual void substitution(std::shared_ptr<Expression<Object> >, std::shared_ptr<Expression<Object> > to) = 0;
+	virtual void substitution(const std::shared_ptr<Expression<Boolean>>&, const std::shared_ptr<Expression<Boolean>>&) = 0;
+	virtual void substitution(const std::shared_ptr<Expression<Object>>&, const std::shared_ptr<Expression<Object>>&) = 0;
 };
 
 template <typename Type>
 using Pointer = std::shared_ptr<Expression<Type>>;
 
+template <typename T1>
+bool operator ==(Pointer<T1> p1, Pointer<T1> p2)
+{
+	return p1->toString() == p2->toString();
+}
+
 template <typename T1, typename T2>
 bool operator ==(Pointer<T1> p1, Pointer<T2> p2)
 {
 	return false;
-}
-
-template <typename T1, typename T2>
-bool operator ==(Pointer<T1> p1, Pointer<T1> p2)
-{
-	return p1->toString() == p2->toString();
 }
 
 //-------------------------------------------------------------------------------------------
@@ -61,8 +61,8 @@ public:
 
 	virtual std::string toString() const override = 0;
 
-	virtual void substitution(Pointer<Boolean>, Pointer<Boolean> to) override = 0;
-	virtual void substitution(Pointer<Object>, Pointer<Object> to) override = 0;
+	virtual void substitution(const Pointer<Boolean>&, const Pointer<Boolean>&) override = 0;
+	virtual void substitution(const Pointer<Object>&, const Pointer<Object>&) override = 0;
 };
 
 //Unary operations

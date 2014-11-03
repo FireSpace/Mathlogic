@@ -16,12 +16,12 @@ public:
 	virtual Object calc() const override;
 	virtual std::string toString() const override;
 
-    virtual void substitution(Pointer<Boolean> from, Pointer<Boolean> to) override
+    virtual void substitution(const Pointer<Boolean>& from, const Pointer<Boolean>& to) override
     {
         this->subst(from, to);
     }
 
-    virtual void substitution(Pointer<Object> from, Pointer<Object> to) override
+    virtual void substitution(const Pointer<Object>& from, const Pointer<Object>& to) override
     {
         this->subst(from, to);
     }

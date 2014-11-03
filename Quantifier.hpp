@@ -37,12 +37,12 @@ public:
         return this->str;
     }
 
-    virtual void substitution(Pointer<Boolean> from, Pointer<Boolean> to) override
+    virtual void substitution(Pointer<Boolean>& from, Pointer<Boolean>& to) override
     {
         this->subst(from, to);
     }
 
-    virtual void substitution(Pointer<Object> from, Pointer<Object> to) override
+    virtual void substitution(Pointer<Object>& from, Pointer<Object>& to) override
     {
         this->subst(from, to);
     }
