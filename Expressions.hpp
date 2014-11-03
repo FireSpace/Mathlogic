@@ -56,8 +56,8 @@ public:
 
 	virtual std::string toString() const override = 0;
 
-	virtual void substitution(std::shared_ptr<Expression<Boolean>>, std::shared_ptr<Expression<Boolean>> to) override = 0;
-	virtual void substitution(std::shared_ptr<Expression<Object> >, std::shared_ptr<Expression<Object> > to) override = 0;
+	virtual void substitution(Pointer<Boolean>, Pointer<Boolean> to) override = 0;
+	virtual void substitution(Pointer<Object>, Pointer<Object> to) override = 0;
 };
 
 //Unary operations

@@ -37,11 +37,21 @@ public:
         return this->str;
     }
 
-    /*virtual Boolean calc() const override
+    virtual void substitution(Pointer<Boolean> from, Pointer<Boolean> to) override
+    {
+        this->subst(from, to);
+    }
+
+    virtual void substitution(Pointer<Object> from, Pointer<Object> to) override
+    {
+        this->subst(from, to);
+    }
+
+    virtual Boolean calc() const override
     {
         assert(this->init);
         return this->callerCalc(typename gens<sizeof...(ArgsT)>::type());
-    }*/
+    }
 };
 
 
