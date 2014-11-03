@@ -32,7 +32,12 @@ using Pointer = std::shared_ptr<Expression<Type>>;
 template <typename T1, typename T2>
 bool operator ==(Pointer<T1> p1, Pointer<T2> p2)
 {
-	if (typeid(T1) != typeid(T2)) return false;
+	return false;
+}
+
+template <typename T1, typename T2>
+bool operator ==(Pointer<T1> p1, Pointer<T1> p2)
+{
 	return p1->toString() == p2->toString();
 }
 
