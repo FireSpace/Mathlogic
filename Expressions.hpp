@@ -20,6 +20,10 @@ public:
 	virtual Type calc() const = 0;
 
 	virtual std::string toString() const = 0;
+	
+	//2 overloads becouse templates may not be virtual
+	virtual void substitution(std::shared_ptr<Expression<Boolean>>, std::shared_ptr<Expression<Boolean>> to) = 0;
+	virtual void substitution(std::shared_ptr<Expression<Object> >, std::shared_ptr<Expression<Object> > to) = 0;
 };
 
 template <typename Type>
@@ -51,6 +55,9 @@ public:
 	virtual Type calc() const override = 0;
 
 	virtual std::string toString() const override = 0;
+
+	virtual void substitution(std::shared_ptr<Expression<Boolean>>, std::shared_ptr<Expression<Boolean>> to) override = 0;
+	virtual void substitution(std::shared_ptr<Expression<Object> >, std::shared_ptr<Expression<Object> > to) override = 0;
 };
 
 //Unary operations

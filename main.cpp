@@ -12,5 +12,7 @@ int main()
 	{
 		out << p->toString() << std::endl;
 	}
+
+	std::cout << (context.axioms.at(1) == context.axioms.at(2)) << std::endl << (context.axioms.at(1) == context.axioms.at(1)) << std::endl;
 	//std::cout << std::boolalpha << p->calc() << std::endl;
 }
