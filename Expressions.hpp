@@ -30,13 +30,13 @@ template <typename Type>
 using Pointer = std::shared_ptr<Expression<Type>>;
 
 template <typename T1>
-bool operator ==(Pointer<T1> p1, Pointer<T1> p2)
+bool operator ==(const Pointer<T1>& p1, const Pointer<T1>& p2)
 {
 	return p1->toString() == p2->toString();
 }
 
 template <typename T1, typename T2>
-bool operator ==(Pointer<T1> p1, Pointer<T2> p2)
+bool operator ==(const Pointer<T1>& p1, const Pointer<T2>& p2)
 {
 	return false;
 }
