@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(mathlogic2)
 
+FIND_PACKAGE(Boost REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g")
 
 set(SOURCE_FILES
@@ -22,5 +26,6 @@ set(SOURCE_FILES
 	Term.hpp
 	Quantifier.hpp
 	Context.hpp
+	Parser.hpp
 	)
 add_executable(mathlogic2 ${SOURCE_FILES})
